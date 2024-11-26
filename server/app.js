@@ -23,8 +23,16 @@ const {
 
 const express = require('express');
 const app = express();
+app.use(express.json())
+app.use((req, res, next) => {
+  console.log('Request Body:', req.body);
+  next();
+});
 
 // Your code here
+// app.get("/", (res, res) =>{
+
+// })
 
 // DO NOT MODIFY
 if (require.main === module) {

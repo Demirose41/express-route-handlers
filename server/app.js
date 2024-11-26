@@ -30,9 +30,19 @@ app.use((req, res, next) => {
 });
 
 // Your code here
-// app.get("/", (res, res) =>{
+app.get("/artists", (req, res) =>{
+  res.status(200);
+  res.send(getAllArtists())
+  return
+})
 
-// })
+app.post('/artists', (req, res) => {
+  const newArtist = addArtist(req.body)
+  res.status(201)
+  res.setHeader("Content-Type", "application/json")
+  res.send(newArtist)
+
+})
 
 // DO NOT MODIFY
 if (require.main === module) {

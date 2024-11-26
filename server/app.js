@@ -30,8 +30,21 @@ app.use((req, res, next) => {
 });
 
 // Your code here
+app.get("/artists/latest/albums", (req, res) => {
+  res.status(200);
+  res.setHeader("Content-Type", "application/json")
+  res.send(getAlbumsForLatestArtist())
+})
+
+app.get("/artists/latest" , (req, res) => {
+  res.status(200);
+  res.setHeader("Content-Type", "application/json")
+  res.send(getLatestArtist())
+})
+
 app.get("/artists", (req, res) =>{
   res.status(200);
+  res.setHeader("Content-Type", "application/json")
   res.send(getAllArtists())
   return
 })

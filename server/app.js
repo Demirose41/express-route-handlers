@@ -49,6 +49,30 @@ app.get("/artists", (req, res) =>{
   return
 })
 
+app.get("/artists/:artistId", (req, res) =>{
+  const artist = getArtistByArtistId(req.params.artistId)
+  if(artist.artistId){
+    res.status(200);
+    res.setHeader("Content-Type", "application/json")
+    res.json(artist)
+  }else{
+    res.status(404).send("artist not found")
+  }
+})
+
+app.put("/artists/:artistId", (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.status(200);
+  res.json(editArtistByArtistId(req.params.artistId, req.body))
+})
+
+app.delete("/artists/:artistId", (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.status(200);
+  deleteArtistByArtistId(req.params.artistId);
+  res.json({"message": "Successfully deleted"})
+})
+
 app.post('/artists', (req, res) => {
   const newArtist = addArtist(req.body)
   res.status(201)

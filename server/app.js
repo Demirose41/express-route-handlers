@@ -81,6 +81,23 @@ app.post('/artists', (req, res) => {
 
 })
 
+// Albums
+// Get a specific album's details based on albumId
+app.get("/artists/:artistId/albums", (req, res) => {
+  res.status(200).setHeader("Content-Type", "application/json").json(getAlbumsByArtistId(req.params.artistId))
+})
+
+// Get a specific album's details based on albumId
+app.get("/albums/:albumId", (req, res) => {
+  res.status(200).setHeader("Content-Type", "application/json").json(getAlbumByAlbumId(req.params.albumId))
+})
+
+// Add an album to a specific artist based on artistId
+app.post("/artists/:artistId/albums", (req, res) => {
+  const newAlbum = addAlbumByArtistId(req.params.artistId, req.body)
+  res.status(201).setHeader("Content-Type", "application/json").json(newAlbum)
+})
+
 // DO NOT MODIFY
 if (require.main === module) {
   const port = 8000;

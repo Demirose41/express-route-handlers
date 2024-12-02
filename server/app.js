@@ -66,6 +66,12 @@ app.put("/artists/:artistId", (req, res) => {
   res.json(editArtistByArtistId(req.params.artistId, req.body))
 })
 
+app.patch("/artists/:artistId", (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.status(200);
+  res.json(editArtistByArtistId(req.params.artistId, req.body))
+})
+
 app.delete("/artists/:artistId", (req, res) => {
   res.setHeader("Content-Type", "application/json");
   res.status(200);
@@ -96,6 +102,71 @@ app.get("/albums/:albumId", (req, res) => {
 app.post("/artists/:artistId/albums", (req, res) => {
   const newAlbum = addAlbumByArtistId(req.params.artistId, req.body)
   res.status(201).setHeader("Content-Type", "application/json").json(newAlbum)
+})
+
+// Edit a specified album by albumId
+app.put("/albums/:albumId", (req, res) => {
+  const editedAlbum = editAlbumByAlbumId(req.params.albumId, req.body);
+  res.status(200).setHeader("Content-Type", "application/json").json(editedAlbum)
+})
+
+app.patch("/albums/:albumId", (req, res) => {
+  const editedAlbum = editAlbumByAlbumId(req.params.albumId, req.body);
+  res.status(200).setHeader("Content-Type", "application/json").json(editedAlbum)
+})
+
+// 12. Delete a specified album by albumId
+app.delete("/albums/:albumId", (req, res) => {
+  deleteAlbumByAlbumId(req.params.albumId)
+  res.status(200).setHeader("Content-Type", "application/json").json({"message": "Successfully deleted"})
+})
+
+// 13. Get all albums with names filtered by first letter
+app.get("/albums/", (req, res) => {
+  if(req.query){
+    const filteredAlbums = getFilteredAlbums(req.query.startsWith)
+    res.status(200).setHeader("Content-Type", "application/json").json(filteredAlbums)
+  }
+})
+
+// 14. Get a specific song's details based on songId
+app.get("/songs/:songId", (req, res) => {
+  const songDetails = getSongBySongId(req.params.songId)
+  res.status(200).setHeader("Content-Type", "application/json").json(songDetails)
+})
+
+// 15. Add a song to a specific album based on albumId
+app.post("/albums/:albumId/songs", (req, res) => {
+  const addedSong = addSongByAlbumId(req.params.albumId, req.body)
+  res.status(201).setHeader("Content-Type", "application/json").json(addedSong)
+})
+
+// 16. Get all songs of a specific artist baed on artistId
+app.get("/artists/:artistId/songs", (req, res) => {
+  const artistsSongs = getSongsByArtistId(req.params.artistId);
+  res.status(200).setHeader("Content-Type","application/json").json(artistsSongs)
+})
+
+// 17. Get all songs of a specific album based on albumId
+
+app.get("/albums/:albumId/songs", (req, res) => {
+  res.status(200).setHeader("Content-Type", "application/json").json(getSongsByAlbumId(req.params.albumId))
+})
+
+// 18. Edit a specified song by songId
+app.put("/songs/:songId", (req, res) => {
+  res.status(200).setHeader("Content-Type", "application/json").json(editSongBySongId(req.params.songId, req.body))
+})
+
+app.patch("/songs/:songId", (req, res) => {
+  res.status(200).setHeader("Content-Type", "application/json").json(editSongBySongId(req.params.songId, req.body))
+})
+
+// 19. Delete a specified song by songId
+
+app.delete("/songs/:songId", (req, res) => {
+  deleteSongBySongId(req.params.songId)
+  res.status(200).setHeader("Content-Tyoe", "application/json").json({"message": "Successfully deleted"})
 })
 
 // DO NOT MODIFY
